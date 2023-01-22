@@ -25,9 +25,9 @@ public class SliderAdapter extends PagerAdapter {
 
     public int[] imagesArray = new int[]{
             R.drawable.png_who_are_we
-            , R.drawable.ic_launcher_background
-            , R.drawable.ic_launcher_background
-            , R.drawable.ic_launcher_background};
+            , R.drawable.png_what_it_can_do
+            , R.drawable.png_what_you_get
+            , R.drawable.png_what_we_use};
     public String[] titleArray = {"Who are we"
             ,"What it can do"
             ,"What you get"

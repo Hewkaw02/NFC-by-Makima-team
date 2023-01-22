@@ -1,5 +1,8 @@
 package com.team.makimainu.Retrofit;
 
+import com.team.makimainu.Model.POJO_Login;
+import com.team.makimainu.Model.POJO_Sign_Up;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -9,19 +12,18 @@ import retrofit2.http.POST;
 
 public interface APIServer {
 
-//    @FormUrlEncoded
-//    @POST("API-Login.php/")
-//    Call<POJO_Login_Staus> api_part_login(@Field("username")String first,
-//                                        @Field("password") String last);
-//
-//    @FormUrlEncoded
-//    @POST("register-api.php")
-//    Call<POJO_Register> api_part_register (@Field("firest_name") String firstname ,
-//                                         @Field("last_name")   String lastname ,
-//                                         @Field("username")    String username ,
-//                                         @Field("password")    String password ,
-//                                         @Field("type_user")   String type_user ,
-//                                         @Field("email")       String email);
+    @FormUrlEncoded
+    @POST("login.php")
+    Call<POJO_Login> api_part_login(@Field("Username") String Username,
+                                    @Field("Password") String  Password);
+
+    @FormUrlEncoded
+    @POST("register.php")
+    Call<POJO_Sign_Up> api_part_register (@Field("Name") String Name ,
+                                          @Field("Email")   String Email ,
+                                          @Field("Username") String Username,
+                                          @Field("Password")    String Password ,
+                                          @Field("Phone_number")    String Phone_Number);
 
 
 }

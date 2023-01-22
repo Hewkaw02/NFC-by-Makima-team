@@ -60,25 +60,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        SharedPreferences sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-//        if (!sharedpreferences.getBoolean(prevStarted, false)) {
-//            SharedPreferences.Editor editor = sharedpreferences.edit();
-//            editor.putBoolean(prevStarted, Boolean.TRUE);
-//            editor.apply();
-//        } else {
-//            finish();
-//            moveToSecondary();
-//        }
-//    }
-//
-//    public void moveToSecondary(){
-//        // use an intent to travel from one activity to another.
-//        Intent intent = new Intent(this,LoginActivity.class);
-//        startActivity(intent);
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedpreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        if (!sharedpreferences.getBoolean(prevStarted, false)) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putBoolean(prevStarted, Boolean.TRUE);
+            editor.apply();
+        } else {
+            finish();
+            moveToSecondary();
+        }
+    }
+
+    public void moveToSecondary(){
+        // use an intent to travel from one activity to another.
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
+    }
 }
 
 
