@@ -3,7 +3,9 @@ package com.team.makimainu;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,18 +24,31 @@ import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity  {
 
-//    public static final String MyPer = "myPer";
+    public static final String MyPer = "myPer";
     public static final String BASEURL = "http://10.0.2.2/makima/";
+    public static  String Name_User = "Name";
+    public static  String Email_User = "Email";
+    public static  String Phone_number_User = "Phone_number";
+
 
     ImageView imageView ;
     EditText et_user , et_pass;
     Button bt_signup , bt_signin;
     LinearLayout layout_login;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        try {this.getSupportActionBar().hide();}
+        catch (NullPointerException e){}
+
+        sharedPreferences = getSharedPreferences(MyPer, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
         imageView = (ImageView) findViewById(R.id.Logoview);
         et_user = (EditText) findViewById(R.id.et_Username);
         et_pass = (EditText) findViewById(R.id.et_Password);
@@ -86,8 +101,14 @@ public class LoginActivity extends AppCompatActivity  {
             }else {
 
                 Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเรํจ", Toast.LENGTH_SHORT).show();
+
+                editor.putString(Name_User , Sign_In.getName().toString());
+                editor.putString(Email_User , Sign_In.getEmail().toString());
+                editor.putString(Phone_number_User , Sign_In.getPhoneNumber().toString());
+                editor.commit();
                 Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
                 startActivity(intent);
+                finish();
 
             }
 
