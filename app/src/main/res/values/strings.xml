@@ -1,9 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Makima Inu</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="service_description">HCE Service</string>
-    <string name="aid_description">Aid Description</string>
-    <string name="aid_1">MyAppAID</string>
 </resources>
