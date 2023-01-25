@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity  {
                 Toast.makeText(LoginActivity.this, "ดูเหมือน username หรือ password ยังผิดนะ", Toast.LENGTH_SHORT).show();
             }else {
 
-                Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเรํจ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();
 
                 editor.putString(Name_User , Sign_In.getName().toString());
                 editor.putString(Email_User , Sign_In.getEmail().toString());
