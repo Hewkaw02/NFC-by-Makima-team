@@ -15,6 +15,12 @@
         android:text="OTP Unavailable"
         android:textSize="40sp"/>
 
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etOTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Please insert OTP number"/>
+
     <Button
         android:id="@+id/bt_send_otp"
         android:layout_width="wrap_content"
