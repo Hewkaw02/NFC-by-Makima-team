@@ -7,12 +7,17 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.team.makimainu.BuildConfig;
+import com.team.makimainu.Model.POJO_Admin_Key_Detail;
+import com.team.makimainu.Model.POJO_Admin_Status;
 import com.team.makimainu.Model.POJO_Login;
 import com.team.makimainu.Model.POJO_Sign_Up;
+import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Admin_Get_Key;
+import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Admin_Get_User;
 import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Login;
 import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Sign_Up;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -117,7 +122,6 @@ public class NetworkConnectManager {
         });
 
     }
-
     public void callServer_Sign_Up(final NetCallback_Sign_Up sign_up,
                                    String Name,
                                    String Email,
@@ -210,4 +214,179 @@ public class NetworkConnectManager {
         });
 
     }
+    public void callServer_admin_get_user(final NetCallback_Admin_Get_User adminGetUser, String Type_user) {
+
+        OkHttpClient.Builder http = new OkHttpClient.Builder();
+
+        /// log check
+        if (BuildConfig.DEBUG){
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            http.addInterceptor(loggingInterceptor);
+
+//            Request.Builder requestBuilder = chain.request().newBuilder();
+//            requestBuilder.header("Content-Type", "application/json");
+//            return chain.proceed(requestBuilder.build());
+
+        }
+
+        // Check Type
+        http.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request.Builder request = chain.request().newBuilder().header("Content-Type","application/json");
+                return chain.proceed(request.build());
+            }
+        });
+
+
+        Gson gson = new GsonBuilder().setLenient().create();
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient();
+
+        client.newBuilder().addInterceptor(loggingInterceptor);
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASEURL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(http.build())
+                .build();
+
+        APIServer callapi = retrofit.create(APIServer.class);
+        Call call = callapi.api_admin_get_user(Type_user);
+        call.enqueue(new Callback<POJO_Admin_Status>() {
+            @Override
+            public void onResponse(Call<POJO_Admin_Status> Adminstatus, Response<POJO_Admin_Status> response) {
+
+                try {
+
+                    POJO_Admin_Status admin_statuses = response.body();
+
+                    if (admin_statuses == null) {
+                        //404 or the response cannot be converted to User.
+                        ResponseBody responseBody = response.errorBody();
+                        if (responseBody != null) {
+                            adminGetUser.onBodyError(responseBody);
+                        } else {
+                            adminGetUser.onBodyErrorIsNull();
+                        }
+                    } else {
+                        //callback_idCard
+                        adminGetUser.onResponse(response.body());
+//                        Log.e("ResNet", "" + ());
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Network connect error1", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<POJO_Admin_Status> listCall, Throwable t) {
+
+                try {
+
+                    adminGetUser.onFailure(t);
+
+                } catch (Exception e) {
+
+                    adminGetUser.onFailure(t);
+                }
+
+            }
+        });
+
+    }
+    public void callServer_admin_get_key(final NetCallback_Admin_Get_Key admin_get_key, String users_id) {
+
+        OkHttpClient.Builder http = new OkHttpClient.Builder();
+
+        /// log check
+        if (BuildConfig.DEBUG){
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            http.addInterceptor(loggingInterceptor);
+
+//            Request.Builder requestBuilder = chain.request().newBuilder();
+//            requestBuilder.header("Content-Type", "application/json");
+//            return chain.proceed(requestBuilder.build());
+
+        }
+
+        // Check Type
+        http.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request.Builder request = chain.request().newBuilder().header("Content-Type","application/json");
+                return chain.proceed(request.build());
+            }
+        });
+
+
+        Gson gson = new GsonBuilder().setLenient().create();
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient();
+
+        client.newBuilder().addInterceptor(loggingInterceptor);
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASEURL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(http.build())
+                .build();
+
+        APIServer callapi = retrofit.create(APIServer.class);
+        Call call = callapi.api_admin_get_key(users_id);
+        call.enqueue(new Callback<POJO_Admin_Key_Detail>() {
+            @Override
+            public void onResponse(Call<POJO_Admin_Key_Detail> Adminstatus, Response<POJO_Admin_Key_Detail> response) {
+
+                try {
+
+                    POJO_Admin_Key_Detail key_detail = response.body();
+
+                    if (key_detail == null) {
+                        //404 or the response cannot be converted to User.
+                        ResponseBody responseBody = response.errorBody();
+                        if (responseBody != null) {
+                            admin_get_key.onBodyError(responseBody);
+                        } else {
+                            admin_get_key.onBodyErrorIsNull();
+                        }
+                    } else {
+                        //callback_idCard
+                        admin_get_key.onResponse(response.body());
+//                        Log.e("ResNet", "" + ());
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Network connect error1", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<POJO_Admin_Key_Detail> key_detailCall, Throwable t) {
+
+                try {
+
+                    admin_get_key.onFailure(t);
+
+                } catch (Exception e) {
+
+                    admin_get_key.onFailure(t);
+                }
+
+            }
+        });
+
+    }
+
 }

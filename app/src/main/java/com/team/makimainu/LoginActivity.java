@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity  {
     public static  String Name_User = "Name";
     public static  String Email_User = "Email";
     public static  String Phone_number_User = "Phone_number";
+    public static  String Type_User = "User";
 
 
     ImageView imageView ;
@@ -105,10 +106,28 @@ public class LoginActivity extends AppCompatActivity  {
                 editor.putString(Name_User , Sign_In.getName().toString());
                 editor.putString(Email_User , Sign_In.getEmail().toString());
                 editor.putString(Phone_number_User , Sign_In.getPhoneNumber().toString());
+                editor.putString(Type_User, Sign_In.getTypeUser().toString());
                 editor.commit();
-                Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
-                startActivity(intent);
-                finish();
+
+                if (Sign_In.getTypeUser().equals("User")){
+
+                    Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }else if (Sign_In.getTypeUser().equals("Admin")){
+
+                    Intent intent = new Intent(getApplicationContext(),AdminActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }else {
+
+                    Toast.makeText(LoginActivity.this, "Who are you !?", Toast.LENGTH_SHORT).show();
+
+                }
+
+
 
             }
 

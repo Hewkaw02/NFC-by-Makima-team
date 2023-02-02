@@ -3,15 +3,10 @@ package com.team.makimainu.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class POJO_Login {
-
-
-    @SerializedName("status")
+public class POJO_Admin_Get_User {
+    @SerializedName("ID")
     @Expose
-    private String status;
-    @SerializedName("message")
-    @Expose
-    private String message;
+    private String id;
     @SerializedName("Name")
     @Expose
     private String name;
@@ -27,24 +22,19 @@ public class POJO_Login {
     @SerializedName("Type_user")
     @Expose
     private String typeUser;
+    @SerializedName("Key_unit")
+    @Expose
+    private String keyUnit;
     @SerializedName("Apikey")
     @Expose
     private Object apikey;
 
-    public String getStatus() {
-        return status;
+    public String getId() {
+        return id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -85,6 +75,14 @@ public class POJO_Login {
 
     public void setTypeUser(String typeUser) {
         this.typeUser = typeUser;
+    }
+
+    public String getKeyUnit() {
+        return keyUnit;
+    }
+
+    public void setKeyUnit(String keyUnit) {
+        this.keyUnit = keyUnit;
     }
 
     public Object getApikey() {
