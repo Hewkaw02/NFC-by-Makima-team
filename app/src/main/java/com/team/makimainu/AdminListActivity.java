@@ -33,20 +33,17 @@ public class AdminListActivity extends AppCompatActivity {
         list_key = findViewById(R.id.list_view_key);
 
         new NetworkConnectManager().callServer_admin_get_key(admin_get_key,getIntent().getStringExtra("ID_user"));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String> (this,android.R.layout.simple_list_item_1,KeyArray);
-        list_key.setAdapter(adapter);
+
     }
 
     NetCallback_Admin_Get_Key admin_get_key = new NetCallback_Admin_Get_Key() {
         @Override
         public void onResponse(POJO_Admin_Key_Detail key_detail) {
 
-            Log.e(TAG, "onResponse: " + key_detail.getKeyData());
+            KeyArray = key_detail.getKeyData().toArray(new String[0]);
 
-            for (int i = 0; i< key_detail.getKeyData().size() ;i++) {
-                KeyArray[i] = key_detail.getKeyData().get(i).toString();
-            }
-//            Toast.makeText(AdminListActivity.this, ""+key_list_for_show, Toast.LENGTH_SHORT).show();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String> (AdminListActivity.this,android.R.layout.simple_list_item_1,KeyArray);
+            list_key.setAdapter(adapter);
 
         }
 

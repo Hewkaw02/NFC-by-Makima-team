@@ -368,7 +368,7 @@ public class NetworkConnectManager {
                     }
 
                 } catch (Exception e) {
-                    Log.e("Network connect error1", e.getMessage());
+//                    Log.e("Network connect error1", e.getMessage());
                 }
             }
 
