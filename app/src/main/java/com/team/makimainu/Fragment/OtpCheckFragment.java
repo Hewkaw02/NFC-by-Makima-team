@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.material.textfield.TextInputEditText;
 import com.team.makimainu.LoginActivity;
 import com.team.makimainu.R;
+import com.team.makimainu.SmsBroadcastReceiver;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,7 +50,9 @@ public class OtpCheckFragment extends Fragment{
         // Inflate the layout for this fragment
 
         etOTP = view.findViewById(R.id.etOTP);
+
         startSmartUserConsent();
+        //เรียกใช้ function ยินยอมการก็อปtext จาก message
         bt_send_otps = view.findViewById(R.id.bt_send_otp);
         bt_send_otps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +84,7 @@ public class OtpCheckFragment extends Fragment{
             }
         }
     }
-
+    //รับข้อมูลจาก message
     private void getOtpFromMessaga(String message) {
         Pattern otpPattern = Pattern.compile("(|^)\\d{6}");
         Matcher matcher = otpPattern.matcher(message);

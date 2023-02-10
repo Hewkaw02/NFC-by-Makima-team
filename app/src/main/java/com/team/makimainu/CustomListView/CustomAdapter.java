@@ -21,7 +21,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
     Context mContext;
 
     // View lookup cache
-    private static class ViewHolder {
+    static class ViewHolder {
         TextView txtName;
         TextView txtPhone;
         TextView txtKey_Point;

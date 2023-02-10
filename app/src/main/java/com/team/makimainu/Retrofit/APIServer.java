@@ -2,6 +2,7 @@ package com.team.makimainu.Retrofit;
 
 import com.team.makimainu.Model.POJO_Admin_Key_Detail;
 import com.team.makimainu.Model.POJO_Admin_Status;
+import com.team.makimainu.Model.POJO_Key_Update;
 import com.team.makimainu.Model.POJO_Login;
 import com.team.makimainu.Model.POJO_Sign_Up;
 
@@ -35,4 +36,7 @@ public interface APIServer {
     @POST("admin_user_key.php")
     Call<POJO_Admin_Key_Detail> api_admin_get_key(@Field("users_id") String users_id);
 
+    @FormUrlEncoded
+    @POST("update_key.php")
+    Call<POJO_Key_Update> api_update_key(@Field("key_data") String key_data,@Field("key_id") String key_id);
 }

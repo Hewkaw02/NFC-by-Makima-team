@@ -77,9 +77,9 @@ public class LoginActivity extends AppCompatActivity  {
             public void onClick(View view) {
 
                 if (et_user.getText().toString().equals("")){
-                    et_user.setError("ดูเหมือนยังไม่ได้ใส่ username นะ");
+                    et_user.setError("กรุณาใส่ username ให้ถูกต้อง");
                 } else if (et_pass.getText().toString().equals("")) {
-                    et_pass.setError("ดูเหมือนยังไม่ได้ใส่ password นะ");
+                    et_pass.setError("กรุณาใส่ password ให้ถูกต้อง");
                 }else {
 
                     String user = et_user.getText().toString();
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity  {
         public void onResponse(POJO_Login Sign_In) {
 
             if (Sign_In.getStatus().equals("failed")){
-                Toast.makeText(LoginActivity.this, "ดูเหมือน username หรือ password ยังผิดนะ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "username หรือ password ไม่ถูกต้อง", Toast.LENGTH_SHORT).show();
             }else {
 
                 Toast.makeText(LoginActivity.this, "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_SHORT).show();

@@ -21,7 +21,6 @@ public class DoneSignUpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_done_sign_up, container, false);
 
 
-
         return view;
     }
 }

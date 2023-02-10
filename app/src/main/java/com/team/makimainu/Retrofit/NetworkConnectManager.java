@@ -9,15 +9,16 @@ import com.google.gson.GsonBuilder;
 import com.team.makimainu.BuildConfig;
 import com.team.makimainu.Model.POJO_Admin_Key_Detail;
 import com.team.makimainu.Model.POJO_Admin_Status;
+import com.team.makimainu.Model.POJO_Key_Update;
 import com.team.makimainu.Model.POJO_Login;
 import com.team.makimainu.Model.POJO_Sign_Up;
 import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Admin_Get_Key;
 import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Admin_Get_User;
 import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Login;
 import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_Sign_Up;
+import com.team.makimainu.Retrofit.OnNetworkCallback.NetCallback_key_update;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -281,7 +282,7 @@ public class NetworkConnectManager {
                     }
 
                 } catch (Exception e) {
-                    Log.e("Network connect error1", e.getMessage());
+                        Log.e("Network connect error1", e.getMessage());
                 }
             }
 
@@ -387,6 +388,101 @@ public class NetworkConnectManager {
             }
         });
 
+
     }
 
-}
+    public void callServer_update_key(final NetCallback_key_update keyUpdate, String key_data,String key_id) {
+
+        OkHttpClient.Builder http = new OkHttpClient.Builder();
+
+        /// log check
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            http.addInterceptor(loggingInterceptor);
+
+//            Request.Builder requestBuilder = chain.request().newBuilder();
+//            requestBuilder.header("Content-Type", "application/json");
+//            return chain.proceed(requestBuilder.build());
+
+        }
+
+        // Check Type
+        http.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request.Builder request = chain.request().newBuilder().header("Content-Type", "application/json");
+                return chain.proceed(request.build());
+            }
+        });
+
+
+        Gson gson = new GsonBuilder().setLenient().create();
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient();
+
+        client.newBuilder().addInterceptor(loggingInterceptor);
+
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASEURL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(http.build())
+                .build();
+
+        APIServer callapi = retrofit.create(APIServer.class);
+        Call call = callapi.api_update_key(key_data,key_id);
+        call.enqueue(new Callback<POJO_Key_Update>() {
+            @Override
+            public void onResponse(Call<POJO_Key_Update> Adminstatus, Response<POJO_Key_Update> response) {
+
+                /*try {
+
+                    POJO_Key_Update admin_statuses = response.body();
+
+                    if (admin_statuses == null) {
+                        //404 or the response cannot be converted to User.
+                        ResponseBody responseBody = response.errorBody();
+                        if (responseBody != null) {
+                            keyUpdate.onBodyError(responseBody);
+                        } else {
+                            keyUpdate.onBodyErrorIsNull();
+                        }
+                    } else {
+                        //callback_idCard
+                        keyUpdate.onResponse(response.body());
+//                        Log.e("ResNet", "" + ());
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Network connect error1", e.getMessage());
+                }*/
+
+                if (response.isSuccessful() && response.body() != null) {
+                    POJO_Key_Update update = response.body();
+                    keyUpdate.onResponse(update);
+                } else {
+                    keyUpdate.onBodyError(response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<POJO_Key_Update> listCall, Throwable t) {
+
+                try {
+
+                    keyUpdate.onFailure(t);
+
+                } catch (Exception e) {
+
+                    keyUpdate.onFailure(t);
+                }
+
+            }
+        });
+    }
+
+    }

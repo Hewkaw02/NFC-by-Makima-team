@@ -1,4 +1,4 @@
-package com.team.makimainu.Fragment;
+package com.team.makimainu;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

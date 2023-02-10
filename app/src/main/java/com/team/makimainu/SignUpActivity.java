@@ -9,10 +9,6 @@ import com.team.makimainu.Fragment.SignUpFragment;
 
 public class SignUpActivity extends AppCompatActivity {
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

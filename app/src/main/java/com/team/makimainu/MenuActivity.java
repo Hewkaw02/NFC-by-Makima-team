@@ -34,7 +34,7 @@ public class MenuActivity extends AppCompatActivity {
         bt_use_nfc = (CardView) findViewById(R.id.bt_Use_NFC);
         bt_regis_nfc = (CardView) findViewById(R.id.bt_Regis_NFC);
         bt_setting = (CardView) findViewById(R.id.bt_Setting);
-        bt_for_future = findViewById(R.id.bt_for_future);
+        bt_for_future = (CardView) findViewById(R.id.bt_for_future);
         name_user = (TextView) findViewById(R.id.tag_name);
 
         String Name_user = sharedPreferences.getString(LoginActivity.Name_User,"");

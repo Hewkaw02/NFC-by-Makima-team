@@ -87,7 +87,6 @@ public class AdminActivity extends AppCompatActivity {
         public void onResponse(POJO_Admin_Status status) {
 
             for (int i = 0; i< status.getData().size() ;i++) {
-
                 Log.e(TAG, "onResponse: "+" "+status.getData().get(i).getName()+" "+status.getData().get(i).getPhoneNumber()+" "+status.getData().get(i).getKeyUnit());
                 dataModels.add(new DataModel(""+status.getData().get(i).getName(),""+status.getData().get(i).getPhoneNumber(),""+status.getData().get(i).getKeyUnit()));
 
